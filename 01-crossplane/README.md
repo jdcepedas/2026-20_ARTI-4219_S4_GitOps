@@ -76,6 +76,10 @@ kubectl apply -f 01-crossplane/provider.yaml
 kubectl get providers --watch
 ```
 
+```bash
+kubectl get crds
+```
+
 ### Paso 4: Desplegar PostgreSQL en el clúster para el Provider
 
 El provider-postgresql necesita conectarse a una instancia de PostgreSQL para crear las bases de datos. Vamos a desplegarla directamente en el clúster Kind.
@@ -122,12 +126,20 @@ Un **ProviderConfig** es la **configuración de conexión** que le dice al Provi
 kubectl apply -f 01-crossplane/provider-config.yaml
 ```
 
+```bash
+kubectl get providerconfig
+```
+
 ### Paso 6: Instalar la función `function-patch-and-transform`
 
 Se debe instalar la función `function-patch-and-transform` que se va a utilizar en la Composition para transformar los Managed Resources con los datos de los Claims:
 
 ```bash
 kubectl apply -f 01-crossplane/function.yaml
+```
+
+```bash
+kubectl get functions
 ```
 
 ---
@@ -238,6 +250,11 @@ kubectl get postgresqlinstances -n default
 kubectl describe postgresqlinstance <nombre> -n default
 
 # Ver los eventos de Crossplane
+kubectl get events -n crossplane-system --sort-by='.lastTimestamp'
+```
+
+```bash
+# Ver los eventos del namespace default en donde se creó el claim
 kubectl get events -n crossplane-system --sort-by='.lastTimestamp'
 ```
 
