@@ -190,7 +190,7 @@ kubectl apply -f 02-argocd/app-gitops-demo.yaml
 argocd app get gitops-demo
 
 # Ver todos los recursos gestionados por Argo CD
-argocd app resources crossplane-infra
+argocd app resources gitops-demo
 ```
 
 ### Confirmar la base de datos en PostgreSQL
@@ -225,10 +225,10 @@ git commit -m "feat: rename database to appdb-v2"
 git push origin main
 
 # Forzar sincronización inmediata (sin esperar el polling)
-argocd app sync crossplane-infra
+argocd app sync gitops-demo
 
 # Observar
-argocd app get crossplane-infra
+argocd app get gitops-demo
 kubectl get databases.postgresql.postgresql.upbound.io
 ```
 
